@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00016419  00000000  00000000  0002add0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000996e  00000000  00000000  000411e9  2**0
+ 17 .debug_line   00009970  00000000  00000000  000411e9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081d19  00000000  00000000  0004ab57  2**0
+ 18 .debug_str    00081d19  00000000  00000000  0004ab59  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000cc870  2**0
+ 19 .comment      00000053  00000000  00000000  000cc872  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002628  00000000  00000000  000cc8c4  2**2
+ 20 .debug_frame  00002628  00000000  00000000  000cc8c8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -878,6 +878,7 @@ void update7SEG(int index){
  8000660:	08000719 	.word	0x08000719
 	switch (index) {
 		case 0:
+			// Display the first 7 SEG with led_buffer [0]
 			display7SEG(led_buffer[index]);
  8000664:	4a3e      	ldr	r2, [pc, #248]	; (8000760 <update7SEG+0x124>)
  8000666:	687b      	ldr	r3, [r7, #4]
@@ -907,6 +908,7 @@ void update7SEG(int index){
 			break;
  800069e:	e05a      	b.n	8000756 <update7SEG+0x11a>
 		case 1:
+			// Display the first 7 SEG with led_buffer [1]
 			display7SEG(led_buffer[index]);
  80006a0:	4a2f      	ldr	r2, [pc, #188]	; (8000760 <update7SEG+0x124>)
  80006a2:	687b      	ldr	r3, [r7, #4]
@@ -936,6 +938,7 @@ void update7SEG(int index){
 			break;
  80006da:	e03c      	b.n	8000756 <update7SEG+0x11a>
 		case 2:
+			// Display the first 7 SEG with led_buffer [2]
 			display7SEG(led_buffer[index]);
  80006dc:	4a20      	ldr	r2, [pc, #128]	; (8000760 <update7SEG+0x124>)
  80006de:	687b      	ldr	r3, [r7, #4]
@@ -965,6 +968,7 @@ void update7SEG(int index){
 			break;
  8000716:	e01e      	b.n	8000756 <update7SEG+0x11a>
 		case 3:
+			// Display the first 7 SEG with led_buffer [3]
 			display7SEG(led_buffer[index]);
  8000718:	4a11      	ldr	r2, [pc, #68]	; (8000760 <update7SEG+0x124>)
  800071a:	687b      	ldr	r3, [r7, #4]
@@ -1008,7 +1012,7 @@ void update7SEG(int index){
 
 08000768 <HAL_TIM_PeriodElapsedCallback>:
 
-int counter = 50;
+int counter = 25;
 int led = 100 ;
 int status = 0 ;
 int flag = 0 ;
@@ -1033,51 +1037,48 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
  8000784:	4b14      	ldr	r3, [pc, #80]	; (80007d8 <HAL_TIM_PeriodElapsedCallback+0x70>)
  8000786:	681b      	ldr	r3, [r3, #0]
  8000788:	2b00      	cmp	r3, #0
- 800078a:	dc12      	bgt.n	80007b2 <HAL_TIM_PeriodElapsedCallback+0x4a>
-		counter = 50 ;
+ 800078a:	dc16      	bgt.n	80007ba <HAL_TIM_PeriodElapsedCallback+0x52>
+		counter = 25 ;
  800078c:	4b12      	ldr	r3, [pc, #72]	; (80007d8 <HAL_TIM_PeriodElapsedCallback+0x70>)
- 800078e:	2232      	movs	r2, #50	; 0x32
+ 800078e:	2219      	movs	r2, #25
  8000790:	601a      	str	r2, [r3, #0]
-
+		HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+ 8000792:	2120      	movs	r1, #32
+ 8000794:	4812      	ldr	r0, [pc, #72]	; (80007e0 <HAL_TIM_PeriodElapsedCallback+0x78>)
+ 8000796:	f000 fbe3 	bl	8000f60 <HAL_GPIO_TogglePin>
 		if(index_led >= MAX_LED ) index_led = 0 ;
- 8000792:	4b13      	ldr	r3, [pc, #76]	; (80007e0 <HAL_TIM_PeriodElapsedCallback+0x78>)
- 8000794:	681b      	ldr	r3, [r3, #0]
- 8000796:	2204      	movs	r2, #4
- 8000798:	4293      	cmp	r3, r2
- 800079a:	db02      	blt.n	80007a2 <HAL_TIM_PeriodElapsedCallback+0x3a>
- 800079c:	4b10      	ldr	r3, [pc, #64]	; (80007e0 <HAL_TIM_PeriodElapsedCallback+0x78>)
- 800079e:	2200      	movs	r2, #0
- 80007a0:	601a      	str	r2, [r3, #0]
+ 800079a:	4b12      	ldr	r3, [pc, #72]	; (80007e4 <HAL_TIM_PeriodElapsedCallback+0x7c>)
+ 800079c:	681b      	ldr	r3, [r3, #0]
+ 800079e:	2204      	movs	r2, #4
+ 80007a0:	4293      	cmp	r3, r2
+ 80007a2:	db02      	blt.n	80007aa <HAL_TIM_PeriodElapsedCallback+0x42>
+ 80007a4:	4b0f      	ldr	r3, [pc, #60]	; (80007e4 <HAL_TIM_PeriodElapsedCallback+0x7c>)
+ 80007a6:	2200      	movs	r2, #0
+ 80007a8:	601a      	str	r2, [r3, #0]
 		update7SEG(index_led++);
- 80007a2:	4b0f      	ldr	r3, [pc, #60]	; (80007e0 <HAL_TIM_PeriodElapsedCallback+0x78>)
- 80007a4:	681b      	ldr	r3, [r3, #0]
- 80007a6:	1c5a      	adds	r2, r3, #1
- 80007a8:	490d      	ldr	r1, [pc, #52]	; (80007e0 <HAL_TIM_PeriodElapsedCallback+0x78>)
- 80007aa:	600a      	str	r2, [r1, #0]
- 80007ac:	4618      	mov	r0, r3
- 80007ae:	f7ff ff45 	bl	800063c <update7SEG>
-//		status = 1 - status ;
+ 80007aa:	4b0e      	ldr	r3, [pc, #56]	; (80007e4 <HAL_TIM_PeriodElapsedCallback+0x7c>)
+ 80007ac:	681b      	ldr	r3, [r3, #0]
+ 80007ae:	1c5a      	adds	r2, r3, #1
+ 80007b0:	490c      	ldr	r1, [pc, #48]	; (80007e4 <HAL_TIM_PeriodElapsedCallback+0x7c>)
+ 80007b2:	600a      	str	r2, [r1, #0]
+ 80007b4:	4618      	mov	r0, r3
+ 80007b6:	f7ff ff41 	bl	800063c <update7SEG>
 	}
 	if(led <= 0){
- 80007b2:	4b0a      	ldr	r3, [pc, #40]	; (80007dc <HAL_TIM_PeriodElapsedCallback+0x74>)
- 80007b4:	681b      	ldr	r3, [r3, #0]
- 80007b6:	2b00      	cmp	r3, #0
- 80007b8:	dc0a      	bgt.n	80007d0 <HAL_TIM_PeriodElapsedCallback+0x68>
-		led = 100;
  80007ba:	4b08      	ldr	r3, [pc, #32]	; (80007dc <HAL_TIM_PeriodElapsedCallback+0x74>)
- 80007bc:	2264      	movs	r2, #100	; 0x64
- 80007be:	601a      	str	r2, [r3, #0]
-		HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
- 80007c0:	2120      	movs	r1, #32
- 80007c2:	4808      	ldr	r0, [pc, #32]	; (80007e4 <HAL_TIM_PeriodElapsedCallback+0x7c>)
- 80007c4:	f000 fbcc 	bl	8000f60 <HAL_GPIO_TogglePin>
+ 80007bc:	681b      	ldr	r3, [r3, #0]
+ 80007be:	2b00      	cmp	r3, #0
+ 80007c0:	dc06      	bgt.n	80007d0 <HAL_TIM_PeriodElapsedCallback+0x68>
+		led = 100;
+ 80007c2:	4b06      	ldr	r3, [pc, #24]	; (80007dc <HAL_TIM_PeriodElapsedCallback+0x74>)
+ 80007c4:	2264      	movs	r2, #100	; 0x64
+ 80007c6:	601a      	str	r2, [r3, #0]
+
 		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin) ;
  80007c8:	2110      	movs	r1, #16
- 80007ca:	4806      	ldr	r0, [pc, #24]	; (80007e4 <HAL_TIM_PeriodElapsedCallback+0x7c>)
+ 80007ca:	4805      	ldr	r0, [pc, #20]	; (80007e0 <HAL_TIM_PeriodElapsedCallback+0x78>)
  80007cc:	f000 fbc8 	bl	8000f60 <HAL_GPIO_TogglePin>
-//		flag = 1 -flag ;
 	}
-
 }
  80007d0:	bf00      	nop
  80007d2:	3708      	adds	r7, #8
@@ -1085,8 +1086,8 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
  80007d6:	bd80      	pop	{r7, pc}
  80007d8:	20000010 	.word	0x20000010
  80007dc:	20000014 	.word	0x20000014
- 80007e0:	20000040 	.word	0x20000040
- 80007e4:	40010800 	.word	0x40010800
+ 80007e0:	40010800 	.word	0x40010800
+ 80007e4:	20000040 	.word	0x20000040
 
 080007e8 <Error_Handler>:
 /**

@@ -303,17 +303,31 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
 }
 
 void updateClockBuffer(){
+// hour >=  10
+// led[0] = 1
+// led[1] = hour - 10
 		if(hour >= 10){
 			led_buffer[0] = hour / 10 ;
 			led_buffer[1] = hour%10 ;
-		}else{
+		}
+// hour <  10
+// led[0] = 0
+// led[1] = hour
+		else{
 			led_buffer[0] = 0;
 			led_buffer[1] = hour%10 ;
 		}
+// minute >=10
+// led[2] = minute / 10
+// led[3] = minute % 10
 		if(minute >= 10){
 				led_buffer[2] = minute / 10 ;
 				led_buffer[3] = minute%10 ;
-		}else{
+		}
+// minute < 10
+// led[2] = 0
+// led[3] = minute
+		else{
 			led_buffer[2] = 0 ;
 			led_buffer[3] = minute ;
 		}
