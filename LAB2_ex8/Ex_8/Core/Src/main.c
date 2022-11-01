@@ -129,9 +129,11 @@ void updateClockBuffer(){
 			if(hour >= 24){
 				led_buffer[0] = 0;
 				led_buffer[1] = 0;
+			}else{
+				led_buffer[0] = hour / 10 ;
+				led_buffer[1] = hour%10 ;
 			}
-			led_buffer[0] = hour / 10 ;
-			led_buffer[1] = hour%10 ;
+
 
 		}
 		else{
@@ -192,7 +194,9 @@ int main(void)
 
 	  if(timer0_flag == 1){
 		  setTimer0(1000);
+
 		  second++ ;
+
 		  if(second >= 60){
 		  	 second = 0 ;
 		  	 minute++;
@@ -204,19 +208,18 @@ int main(void)
 		  if(hour >= 24 ){
 		  	 hour = 0;
 		  }
-		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin) ;
+		  updateClockBuffer();
 	  }
-
-
 	  	if(timer1_flag == 1){
 	  		setTimer1(500);
 	  		HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	  		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin) ;
 	  		if(index_led >= MAX_LED ) index_led = 0 ;
 	  		update7SEG(index_led++);
 	  	}
     /* USER CODE END WHILE */
 
-	//  updateClockBuffer();
+
 
     /* USER CODE BEGIN 3 */
 
